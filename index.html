@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Panduan Lapor SPT 2025 - PT Lixil Aluminium Indonesia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- RESET & BASE --- */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            margin: 0; padding: 0; background: #1e1e1e; 
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; 
+            height: 100vh; width: 100vw; 
+            overflow: hidden; 
+            display: flex; justify-content: center; align-items: center;
+        }
+        
+        /* --- CONTAINER PRESENTASI --- */
+        #presentation-container {
+            width: 100%; height: 100%;
+            max-width: 1280px; /* Max width for Desktop */
+            max-height: 720px; /* Max height for Desktop */
+            background: white; 
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            border-radius: 0; 
+            overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        /* --- SLIDE STYLES --- */
+        .slide {
+            width: 100%; height: 100%;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            padding: 40px 60px; 
+            background: white;
+            animation: fadeEffect 0.5s;
+            overflow-y: auto; /* Allow scroll inside slide if content is long */
+        }
+        .slide.active { display: flex; }
+
+        @keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;} }
+
+        /* --- HEADER --- */
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 4px solid #FFC107; padding-bottom: 15px; margin-bottom: 20px; flex-shrink: 0;
+        }
+        .header h2 { margin: 0; color: #0D47A1; font-size: 32px; text-transform: uppercase; }
+        .badge { background: #0D47A1; color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 14px; white-space: nowrap; }
+
+        /* --- CONTENT GRID (DESKTOP DEFAULT) --- */
+        .content-grid { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; 
+            height: 100%; align-items: center; overflow: hidden;
+        }
+        .text-col { display: flex; flex-direction: column; justify-content: center; overflow-y: auto; max-height: 100%; }
+        .visual-col { height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
+
+        /* --- IMAGES --- */
+        .img-frame {
+            width: 100%; height: 350px; background: #f8f9fa; border: 1px solid #ddd;
+            border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;
+        }
+        .img-frame img { width: 100%; height: 100%; object-fit: contain; }
+        
+        .overlay-icon {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 80px; text-shadow: 0 0 10px rgba(255,255,255,0.8); z-index: 10;
+        }
+
+        /* --- TEXT --- */
+        h1 { font-size: 56px; color: #0D47A1; margin: 0; line-height: 1.1; text-align: center;}
+        h3 { font-size: 28px; color: #333; margin: 0 0 15px 0; }
+        p, li { font-size: 18px; color: #555; line-height: 1.5; margin-bottom: 10px; }
+
+        /* --- BUTTONS --- */
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .btn {
+            display: inline-flex; align-items: center; padding: 12px 20px;
+            text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;
+            transition: transform 0.2s; width: fit-content; cursor: pointer;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-blue { background: #e3f2fd; color: #0D47A1; border: 1px solid #bbdefb; }
+        .btn-red { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+        .btn i { margin-right: 10px; width: 20px; text-align: center; }
+
+        /* --- CONTROLS --- */
+        .controls {
+            position: absolute; bottom: 20px; right: 40px; display: flex; gap: 10px; z-index: 100;
+        }
+        .nav-btn {
+            background: #333; color: white; border: none; padding: 15px 20px;
+            cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 18px;
+        }
+        .nav-btn:hover { background: #555; }
+        .nav-btn:disabled { background: #ccc; cursor: not-allowed; opacity: 0.5; }
+        .slide-number { position: absolute; bottom: 25px; left: 40px; color: #999; font-weight: bold; font-size: 18px; z-index: 100;}
+
+        /* =========================================
+           RESPONSIVE MOBILE (Layaknya Aplikasi HP)
+           ========================================= */
+        @media (max-width: 900px) {
+            #presentation-container {
+                max-width: 100%; max-height: 100%; border-radius: 0;
+            }
+            .slide {
+                padding: 20px 20px 80px 20px; /* Bottom padding for nav buttons */
+                display: none;
+            }
+            .slide.active { display: flex; flex-direction: column; }
+            
+            /* Header adjustments */
+            .header { padding-bottom: 10px; margin-bottom: 15px; }
+            .header h2 { font-size: 20px; }
+            .badge { padding: 4px 10px; font-size: 10px; }
+
+            /* Content Grid -> Stack Vertical */
+            .content-grid { display: flex; flex-direction: column; gap: 20px; overflow-y: visible; }
+            
+            /* Visual on top, Text below */
+            .visual-col { order: -1; width: 100%; height: auto; }
+            .text-col { width: 100%; overflow: visible; }
+            
+            /* Image adjustments */
+            .img-frame { height: 200px; width: 100%; }
+            .overlay-icon { font-size: 50px; }
+
+            /* Text adjustments */
+            h1 { font-size: 32px; }
+            h3 { font-size: 20px; }
+            p, li { font-size: 15px; margin-bottom: 8px; }
+            
+            /* Buttons full width on mobile */
+            .btn { width: 100%; justify-content: center; padding: 14px; font-size: 15px; }
+
+            /* Navigation Bar fixed at bottom */
+            .controls { 
+                position: fixed; bottom: 0; right: 0; left: 0; 
+                width: 100%; background: white; border-top: 1px solid #ddd;
+                padding: 10px 20px; justify-content: space-between; gap: 0;
+            }
+            .nav-btn { flex: 1; max-width: 80px; padding: 10px; }
+            .slide-number { 
+                position: static; flex: 1; text-align: center; 
+                display: flex; align-items: center; justify-content: center;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="presentation-container">
+
+    <div class="slide active">
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+            <i class="fa-solid fa-file-invoice-dollar" style="font-size: 80px; color: #0D47A1; margin-bottom: 20px;"></i>
+            <h1>Panduan Lapor SPT 2025</h1>
+            <h3 style="color: #666; font-size: 18px; margin-top: 10px;">Sistem Baru "Coretax DJP"</h3>
+            <div style="background: #FFC107; padding: 10px 30px; border-radius: 50px; font-weight: bold; font-size: 18px; margin-top: 20px;">
+                Deadline: 31 Maret 2026
+            </div>
+            <div style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px; width: 100%;">
+                <p style="color: #333; font-weight: bold; font-size: 22px; margin: 0; text-align: center;">PT Lixil Aluminium Indonesia</p>
+                <p style="color: #999; font-size: 16px; margin: 5px 0 0 0; text-align: center;">HR Department</p>
+            </div>
+            <p style="margin-top: 30px; color: #aaa; font-style: italic; font-size: 14px; text-align: center;">(Geser layar untuk lanjut &rarr;)</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h2>Langkah 1: Mulai</h2>
+            <span class="badge">PERUBAHAN SISTEM</span>
+        </div>
+        <div class="content-grid">
+            <div class="text-col">
+                <h3>Selamat Datang di Coretax</h3>
+                <p>Mulai tahun ini, pelaporan beralih dari <strong>DJP Online</strong> ke <strong>Coretax DJP</strong>.</p>
+                <p>Pastikan Anda mengakses portal yang benar.</p>
+                <div class="btn-group">
+                    <a href="https://coretaxdjp.pajak.go.id/" target="_blank" class="btn btn-blue">
+                        <i class="fa-solid fa-globe"></i> Link Portal Coretax
+                    </a>
+                </div>
+            </div>
+            <div class="visual-col">
+                <div class="img-frame">
+                    <img src="https://coretaxpajak.com/wp-content/uploads/2024/12/coretax-1.jpeg?w=1024" alt="Coretax Web Interface">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h2>Langkah 2: Akun</h2>
+            <span class="badge">AKTIVASI / DAFTAR</span>
+        </div>
+        <div class="content-grid">
+            <div class="text-col">
+                <p><strong>Punya Akun Lama?</strong><br>
+                Akun DJP Online lama digunakan untuk bayar/lapor pajak sebelumnya. Sekarang, lakukan <em>Aktivasi Akun Coretax</em>.</p>
+                
+                <p><strong>Belum Punya Akun?</strong><br>
+                Lakukan <em>Registrasi Akun Baru</em>.</p>
+                <div class="btn-group">
+                    <a href="https://coretaxdjp.pajak.go.id/registration-portal/id-ID/DigitalAccessRequest" target="_blank" class="btn btn-blue">
+                        <i class="fa-solid fa-link"></i> Link Aktivasi Akun
+                    </a>
+                    <a href="https://coretaxdjp.pajak.go.id/registration-portal/id-ID/CH001/typeSelection" target="_blank" class="btn btn-blue">
+                        <i class="fa-solid fa-user-plus"></i> Link Registrasi Akun
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=w5I7g5OeOEQ" target="_blank" class="btn btn-red">
+                        <i class="fa-brands fa-youtube"></i> Video Tutorial Aktivasi
+                    </a>
+                </div>
+            </div>
+            <div class="visual-col">
+                <div style="display: flex; gap: 10px; width: 100%;">
+                    <div class="img-frame" style="flex: 1; border: 2px solid #c62828;">
+                        <img src="https://d290ny10omyv12.cloudfront.net/images/djp-online-large.png" style="filter: grayscale(100%); opacity: 0.5;" alt="DJP Lama">
+                        <i class="fa-solid fa-xmark overlay-icon" style="color: #c62828;"></i>
+                        <div style="position: absolute; bottom: 5px; background: rgba(198, 40, 40, 0.9); color: white; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold;">DJP Online</div>
+                    </div>
+                    <div class="img-frame" style="flex: 1; border: 2px solid #2e7d32;">
+                        <img src="https://mgmall.s3.amazonaws.com/img/012025/465a79f7699b9a1253311e27209bbdea823410c6.jpg" alt="Coretax Baru">
+                        <i class="fa-solid fa-check overlay-icon" style="color: #2e7d32;"></i>
+                        <div style="position: absolute; bottom: 5px; background: rgba(46, 125, 50, 0.9); color: white; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold;">Coretax</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h2>Langkah 3: Login</h2>
+            <span class="badge">VALIDASI PASSWORD</span>
+        </div>
+        <div class="content-grid">
+            <div class="text-col">
+                <h3>Masuk ke Sistem</h3>
+                <p>Setelah aktivasi, silakan login menggunakan NIK/NPWP dan Password.</p>
+                <p style="background: #fff3e0; padding: 10px; border-radius: 5px;">
+                    <i class="fa-solid fa-key" style="color:#f57c00"></i> Lupa Password? Gunakan fitur <strong>Reset Password</strong>.
+                </p>
+                <div class="btn-group">
+                    <a href="https://coretaxdjp.pajak.go.id/identityproviderportal/Account/Login" target="_blank" class="btn btn-blue">
+                        <i class="fa-solid fa-right-to-bracket"></i> Link Login
+                    </a>
+                    <a href="https://coretaxdjp.pajak.go.id/identityproviderportal/Account/ResetPassword" target="_blank" class="btn btn-blue">
+                        <i class="fa-solid fa-lock-open"></i> Link Reset Password
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=NpfhUGU0XZs" target="_blank" class="btn btn-red">
+                        <i class="fa-brands fa-youtube"></i> Video Reset Password
+                    </a>
+                </div>
+            </div>
+            <div class="visual-col">
+                <div class="img-frame">
+                    <img src="https://msmconsulting.co.id/uploads/news/content/1737604033504-png-974c47da-109c-40fc-beab-aab8837620dc.png" alt="Login Coretax">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h2>Langkah 4: Otorisasi</h2>
+            <span class="badge" style="background: #d32f2f;">PENTING!</span>
+        </div>
+        <div class="content-grid">
+            <div class="text-col">
+                <h3>Request Kode Otorisasi DJP</h3>
+                <p>Setelah login, cari menu ini.</p>
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; border-left: 5px solid #0D47A1;">
+                    <strong>Fungsi:</strong> Kode ini digunakan sebagai kunci/tanda tangan digital saat Anda akan <strong>MENGIRIM</strong> formulir di tahap akhir.
+                </div>
+                <div class="btn-group">
+                    <a href="https://coretaxdjp.pajak.go.id/registration-portal/id-ID/digital-certificate-request" target="_blank" class="btn btn-blue">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Link Menu Request Kode
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=RUV3lw9C21M" target="_blank" class="btn btn-red">
+                        <i class="fa-brands fa-youtube"></i> Video Tutorial Request
+                    </a>
+                </div>
+            </div>
+            <div class="visual-col">
+                <div class="img-frame">
+                    <img src="https://artikel.pajakku.com/wp-content/uploads/2025/05/ea555286-3b5e-44db-96e1-643ed41cf7af-2.webp" alt="Request Kode Keamanan">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h2>Langkah 5: Dokumen & Lapor</h2>
+            <span class="badge">FINALISASI</span>
+        </div>
+        <div class="content-grid">
+            <div class="text-col">
+                <ol style="font-size: 16px; padding-left: 20px;">
+                    <li><strong>Unduh Dokumen:</strong> Download <em>Bukti Potong PPh Pasal 21 A1 (BPA1)</em> dari menu Dokumen.</li>
+                    <li><strong>Buat Konsep:</strong> Masuk menu "Buat Konsep SPT".</li>
+                    <li style="background: #e8f5e9; padding: 5px; border-radius: 4px;">
+                        <strong>Pengisian Data:</strong> Lengkapi kolom data yang tersedia.
+                    </li>
+                    <li><strong>Kirim:</strong> Gunakan Kode Otorisasi untuk mengirim.</li>
+                </ol>
+                <div class="btn-group">
+                    <a href="https://coretaxdjp.pajak.go.id/registration-portal/id-ID/documents" target="_blank" class="btn btn-blue">
+                        <i class="fa-solid fa-download"></i> Download BPA1
+                    </a>
+                    <a href="https://coretaxdjp.pajak.go.id/returnsheets-portal/id-ID/not-submitted-returnsheets" target="_blank" class="btn btn-blue">
+                        <i class="fa-solid fa-pen-to-square"></i> Buat Konsep SPT
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=vfXixW3BNqM" target="_blank" class="btn btn-red">
+                        <i class="fa-brands fa-youtube"></i> Video Tutorial Lengkap
+                    </a>
+                </div>
+            </div>
+            <div class="visual-col">
+                <div class="img-frame">
+                    <img src="https://wallpaperaccess.com/full/8497219.jpg" alt="Proses Pengisian Data di Laptop">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+            <i class="fa-solid fa-circle-check" style="font-size: 80px; color: #2e7d32; margin-bottom: 20px;"></i>
+            <h1>TERIMA KASIH</h1>
+            <h3 style="color: #666; font-size: 18px;">Jangan Lupa Simpan Bukti Lapor Anda</h3>
+            
+            <div style="background: #f5f5f5; padding: 20px; border-radius: 12px; text-align: left; margin-top: 30px; width: 100%; max-width: 400px;">
+                <h4 style="margin: 0 0 10px 0; color: #0D47A1;">Butuh Bantuan?</h4>
+                <div style="margin-bottom: 5px; display:flex; align-items:center;"><i class="fa-solid fa-envelope" style="width: 25px;"></i> <span style="font-size: 14px;">muhammad.faridz@lixil.com</span></div>
+                <div style="display:flex; align-items:center;"><i class="fa-brands fa-whatsapp" style="width: 25px;"></i> <span style="font-size: 14px;">0813-8609-2045 (HR Department)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="nav-btn" id="btn-prev" onclick="moveSlide(-1)">❮</button>
+        <div class="slide-number" id="slide-indicator">1 / 7</div>
+        <button class="nav-btn" id="btn-next" onclick="moveSlide(1)">❯</button>
+    </div>
+
+</div>
+
+<script>
+    let slideIndex = 1;
+    const slides = document.getElementsByClassName("slide");
+    const indicator = document.getElementById("slide-indicator");
+    const btnPrev = document.getElementById("btn-prev");
+    const btnNext = document.getElementById("btn-next");
+    const container = document.getElementById('presentation-container');
+
+    // SLIDE NAVIGATION
+    function updateDisplay() {
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("active");
+        }
+        // Show active slide
+        slides[slideIndex - 1].classList.add("active");
+        
+        // Reset scroll position to top when changing slide
+        slides[slideIndex - 1].scrollTop = 0;
+
+        // Update Text
+        indicator.textContent = slideIndex + " / " + slides.length;
+        
+        // Button States
+        btnPrev.disabled = (slideIndex === 1);
+        btnNext.disabled = (slideIndex === slides.length);
+    }
+
+    function moveSlide(n) {
+        let newIndex = slideIndex + n;
+        if (newIndex < 1 || newIndex > slides.length) return;
+        slideIndex = newIndex;
+        updateDisplay();
+    }
+
+    // SWIPE LOGIC (Touchscreen support)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    // Attach event to the container
+    container.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+    
+    container.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, {passive: true});
+    
+    function handleSwipe() {
+        // Sensitivity threshold (50px)
+        if (touchEndX < touchStartX - 50) moveSlide(1); // Swipe Left -> Next
+        if (touchEndX > touchStartX + 50) moveSlide(-1); // Swipe Right -> Prev
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowRight") {
+            moveSlide(1);
+        } else if (event.key === "ArrowLeft") {
+            moveSlide(-1);
+        }
+    });
+
+    // Initialize
+    updateDisplay();
+</script>
+
+</body>
+</html>
